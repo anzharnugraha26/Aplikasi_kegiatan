@@ -7,7 +7,9 @@ import android.text.TextUtils
 import android.util.Log
 import android.widget.Toast
 import com.example.aplikasikegiatan.R
+import com.example.aplikasikegiatan.firebase.FirestoreClass
 import com.google.firebase.auth.FirebaseAuth
+import com.example.aplikasikegiatan.models.User
 import kotlinx.android.synthetic.main.activity_sign_in.*
 
 class SignInActivity : BaseActivity() {
@@ -47,22 +49,20 @@ class SignInActivity : BaseActivity() {
             auth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this) { task ->
                     if (task.isSuccessful) {
-                        // Sign in success, update UI with the signed-in user's information
-                        Log.d("TAG", "signInWithEmail:success")
-                        val user = auth.currentUser
-                       startActivity(Intent(this, MainActivity::class.java))
+                        FirestoreClass().signInUser(this)
                     } else {
                         // If sign in fails, display a message to the user.
                         Log.w("TAG", "signInWithEmail:failure", task.exception)
-                        Toast.makeText(baseContext, "Authentication failed.",
-                            Toast.LENGTH_SHORT).show()
+                        Toast.makeText(
+                            baseContext, "Authentication failed.",
+                            Toast.LENGTH_SHORT
+                        ).show()
 
                         // ...
                     }
 
                     // ...
                 }
-
 
         }
 
@@ -85,6 +85,12 @@ class SignInActivity : BaseActivity() {
 
         }
 
+    }
+
+    fun signInSuccess(user:User) {
+        hideProggresDialog()
+        startActivity(Intent(this, MainActivity::class.java))
+        finish()
     }
 
 
