@@ -11,7 +11,6 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
 
 
-
 class FirestoreClass {
 
     private val mFireStore = FirebaseFirestore.getInstance()
@@ -26,7 +25,12 @@ class FirestoreClass {
     }
 
     fun getCurrentUserId(): String {
-        return FirebaseAuth.getInstance().currentUser!!.uid
+        var curentUser = FirebaseAuth.getInstance().currentUser
+        var currentUserId = ""
+        if (curentUser != null) {
+            currentUserId = curentUser.uid
+        }
+        return currentUserId
     }
 
     fun signInUser(activity: SignInActivity) {
