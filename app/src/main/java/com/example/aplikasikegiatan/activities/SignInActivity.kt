@@ -87,9 +87,9 @@ class SignInActivity : BaseActivity() {
 
     }
 
-    fun signInSuccess(user:User) {
+    fun signInSuccess(user: User) {
         hideProggresDialog()
-        startActivity(Intent(this, MainActivity::class.java))
+        startActivity(Intent(this, DashboardActivity::class.java))
         finish()
     }
 
