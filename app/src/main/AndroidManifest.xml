@@ -9,7 +9,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AplikasiKegiatan">
-        <activity android:name=".activities.BaseActivity"></activity>
+        <activity android:name=".activities.DashboardActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+
+        </activity>
+        <activity android:name=".activities.BaseActivity" />
         <activity android:name=".activities.SignInActivity" />
         <activity android:name=".SignInActivityy" />
         <activity android:name=".activities.SignUpActivity" />
@@ -21,11 +30,7 @@
             android:name=".activities.SplashActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Design.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".activities.MainActivity" />
     </application>
