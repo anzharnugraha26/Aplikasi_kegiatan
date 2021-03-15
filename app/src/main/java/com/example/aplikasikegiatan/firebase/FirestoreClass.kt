@@ -3,6 +3,7 @@ package com.example.aplikasikegiatan.firebase
 import android.app.Activity
 import android.util.Log
 import com.example.aplikasikegiatan.activities.DashboardActivity
+import com.example.aplikasikegiatan.activities.MyProfileActivity
 import com.example.aplikasikegiatan.activities.SignInActivity
 import com.example.aplikasikegiatan.activities.SignUpActivity
 import com.example.aplikasikegiatan.models.User
@@ -35,7 +36,7 @@ class FirestoreClass {
         return currentUserId
     }
 
-    fun signInUser(activity: Activity) {
+    fun loadDataUser(activity: Activity) {
         mFireStore.collection(Constans.USERS)
             .document(getCurrentUserId())
             .get()
@@ -47,6 +48,9 @@ class FirestoreClass {
                     }
                     is DashboardActivity -> {
                         activity.updateNavigationUSerDetails(loggedInUser)
+                    }
+                    is MyProfileActivity -> {
+                        activity.setUserDataInUI(loggedInUser)
                     }
                 }
             }.addOnFailureListener { e ->

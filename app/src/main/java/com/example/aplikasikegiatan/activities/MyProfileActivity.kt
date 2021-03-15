@@ -1,16 +1,19 @@
 package com.example.aplikasikegiatan.activities
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.bumptech.glide.Glide
 import com.example.aplikasikegiatan.R
+import com.example.aplikasikegiatan.firebase.FirestoreClass
+import com.example.aplikasikegiatan.models.User
 import kotlinx.android.synthetic.main.activity_my_profile.*
-import kotlinx.android.synthetic.main.app_bar_main.*
+import kotlinx.android.synthetic.main.nav_header_main.*
 
-class MyProfileActivity : AppCompatActivity() {
+class MyProfileActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_my_profile)
         setupActionBar()
+        FirestoreClass().loadDataUser(this)
     }
 
     private fun setupActionBar() {
@@ -25,5 +28,21 @@ class MyProfileActivity : AppCompatActivity() {
             onBackPressed()
         }
 
+    }
+
+
+    fun setUserDataInUI(user : User){
+        Glide
+            .with(this)
+            .load(user.image)
+            .centerCrop()
+            .placeholder(R.drawable.ic_baseline_arrow_back_ios_24)
+            .into(profile_user_image)
+
+        profile_email.setText(user.email)
+        profile_username.setText(user.name)
+        if (user.mobile != 0L){
+             profile_mobile.setText(user.mobile.toString())
+        }
     }
 }

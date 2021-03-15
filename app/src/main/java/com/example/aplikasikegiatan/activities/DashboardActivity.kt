@@ -1,10 +1,8 @@
 package com.example.aplikasikegiatan.activities
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
-import android.widget.Toast
 import androidx.core.view.GravityCompat
 import com.bumptech.glide.Glide
 import com.example.aplikasikegiatan.R
@@ -13,7 +11,6 @@ import com.example.aplikasikegiatan.models.User
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_dashboard.*
-import kotlinx.android.synthetic.main.activity_sign_up.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.nav_header_main.*
 
@@ -23,7 +20,7 @@ class DashboardActivity : BaseActivity(), NavigationView.OnNavigationItemSelecte
         setContentView(R.layout.activity_dashboard)
         setupActionBar()
         nav_view.setNavigationItemSelectedListener(this)
-        FirestoreClass().signInUser(this)
+        FirestoreClass().loadDataUser(this)
     }
 
 
