@@ -1,6 +1,8 @@
 package com.example.aplikasikegiatan.firebase
 
+import android.app.Activity
 import android.util.Log
+import com.example.aplikasikegiatan.activities.DashboardActivity
 import com.example.aplikasikegiatan.activities.SignInActivity
 import com.example.aplikasikegiatan.activities.SignUpActivity
 import com.example.aplikasikegiatan.models.User
@@ -33,15 +35,29 @@ class FirestoreClass {
         return currentUserId
     }
 
-    fun signInUser(activity: SignInActivity) {
+    fun signInUser(activity: Activity) {
         mFireStore.collection(Constans.USERS)
             .document(getCurrentUserId())
             .get()
             .addOnSuccessListener { document ->
                 val loggedInUser = document.toObject(User::class.java)!!
-                activity.signInSuccess(loggedInUser)
-
+                when (activity) {
+                    is SignInActivity -> {
+                        activity.signInSuccess(loggedInUser)
+                    }
+                    is DashboardActivity -> {
+                        activity.updateNavigationUSerDetails(loggedInUser)
+                    }
+                }
             }.addOnFailureListener { e ->
+                when (activity) {
+                    is SignInActivity -> {
+                        activity.hideProggresDialog()
+                    }
+                    is DashboardActivity -> {
+                        activity.hideProggresDialog()
+                    }
+                }
                 Log.e(activity.javaClass.simpleName, "error")
             }
     }
