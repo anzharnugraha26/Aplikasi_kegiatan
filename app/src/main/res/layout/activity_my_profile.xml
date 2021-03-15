@@ -14,7 +14,7 @@
         tools:ignore="MissingConstraints">
 
         <androidx.appcompat.widget.Toolbar
-            android:id="@+id/tool_bar_main"
+            android:id="@+id/tool_bar_profile"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
@@ -57,26 +57,27 @@
                     />
 
                 <EditText
-                    android:id="@+id/tv_email"
+                    android:id="@+id/profile_email"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:inputType="textEmailAddress"
                     android:hint="email" />
 
                 <EditText
-                    android:id="@+id/tv_username"
+                    android:id="@+id/profile_username"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="user name" />
 
                 <EditText
-                    android:id="@+id/tv_password"
+                    android:id="@+id/profile_password"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Password"
                     android:inputType="textPassword" />
 
                 <Button
-                    android:id="@+id/submit"
+                    android:id="@+id/upate"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:backgroundTint="@color/teal_200"
