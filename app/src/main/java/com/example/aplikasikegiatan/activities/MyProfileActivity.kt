@@ -186,6 +186,7 @@ class MyProfileActivity : BaseActivity() {
 
     fun profileUpdateSuccess() {
         hideProggresDialog()
+        setResult(Activity.RESULT_OK)
         finish()
     }
 
