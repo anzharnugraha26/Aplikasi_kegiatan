@@ -85,7 +85,7 @@ class MyProfileActivity : BaseActivity() {
             }
 
 
-        } 
+        }
     }
 
     private fun setupActionBar() {
