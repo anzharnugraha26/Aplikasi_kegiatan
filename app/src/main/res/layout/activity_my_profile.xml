@@ -77,7 +77,7 @@
                     android:inputType="number" />
 
                 <Button
-                    android:id="@+id/upate"
+                    android:id="@+id/btn_update"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:backgroundTint="@color/teal_200"
