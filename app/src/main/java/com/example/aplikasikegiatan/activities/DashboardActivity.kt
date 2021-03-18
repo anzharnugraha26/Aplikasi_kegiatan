@@ -28,6 +28,10 @@ class DashboardActivity : BaseActivity(), NavigationView.OnNavigationItemSelecte
         setupActionBar()
         nav_view.setNavigationItemSelectedListener(this)
         FirestoreClass().loadDataUser(this)
+
+        fab_create_board.setOnClickListener {
+            startActivity(Intent(this, BoardActivity::class.java))
+        }
     }
 
 
