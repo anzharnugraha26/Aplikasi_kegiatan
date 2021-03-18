@@ -17,13 +17,20 @@ import kotlinx.android.synthetic.main.activity_board.*
 import kotlinx.android.synthetic.main.activity_my_profile.*
 import java.io.IOException
 
-class BoardActivity : AppCompatActivity() {
+class BoardActivity : BaseActivity() {
     private var mSelectedImageFileUri: Uri? = null
+    private lateinit var mUserName: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_board)
         setupActionBar()
+
+        if (intent.hasExtra(Constans.NAME)){
+            mUserName = intent.getStringExtra(Constans.NAME).toString()
+        }
+
+
         image_board.setOnClickListener {
             if (ContextCompat.checkSelfPermission(
                     this,
@@ -40,8 +47,13 @@ class BoardActivity : AppCompatActivity() {
             }
         }
 
-
     }
+
+    fun boardCreatedSuccessfully(){
+        hideProggresDialog()
+        finish()
+    }
+
 
     private fun setupActionBar() {
         setSupportActionBar(tool_bar_board)

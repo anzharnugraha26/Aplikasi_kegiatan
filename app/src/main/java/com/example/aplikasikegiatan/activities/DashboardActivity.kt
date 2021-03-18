@@ -10,6 +10,7 @@ import com.bumptech.glide.Glide
 import com.example.aplikasikegiatan.R
 import com.example.aplikasikegiatan.firebase.FirestoreClass
 import com.example.aplikasikegiatan.models.User
+import com.example.aplikasikegiatan.utils.Constans
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_dashboard.*
@@ -22,6 +23,8 @@ class DashboardActivity : BaseActivity(), NavigationView.OnNavigationItemSelecte
         const val MY_PROFILE_REQUEST_CODE: Int = 11
     }
 
+    private lateinit var mUserName: String
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_dashboard)
@@ -30,7 +33,9 @@ class DashboardActivity : BaseActivity(), NavigationView.OnNavigationItemSelecte
         FirestoreClass().loadDataUser(this)
 
         fab_create_board.setOnClickListener {
-            startActivity(Intent(this, BoardActivity::class.java))
+            val intent = Intent(this, BoardActivity::class.java)
+            intent.putExtra(Constans.NAME, mUserName)
+            startActivity(intent)
         }
     }
 
@@ -91,7 +96,7 @@ class DashboardActivity : BaseActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     fun updateNavigationUSerDetails(user: User) {
-
+        mUserName = user.name
         Glide
             .with(this)
             .load(user.image)

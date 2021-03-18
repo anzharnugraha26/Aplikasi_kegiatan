@@ -3,10 +3,8 @@ package com.example.aplikasikegiatan.firebase
 import android.app.Activity
 import android.util.Log
 import android.widget.Toast
-import com.example.aplikasikegiatan.activities.DashboardActivity
-import com.example.aplikasikegiatan.activities.MyProfileActivity
-import com.example.aplikasikegiatan.activities.SignInActivity
-import com.example.aplikasikegiatan.activities.SignUpActivity
+import com.example.aplikasikegiatan.activities.*
+import com.example.aplikasikegiatan.models.Board
 import com.example.aplikasikegiatan.models.User
 
 import com.example.aplikasikegiatan.utils.Constans
@@ -35,6 +33,22 @@ class FirestoreClass {
             currentUserId = curentUser.uid
         }
         return currentUserId
+    }
+
+
+    fun createdBoard(activity: BoardActivity, board: Board) {
+        mFireStore.collection(Constans.BOARDS)
+            .document()
+            .set(board, SetOptions.merge())
+            .addOnSuccessListener {
+                Log.e(activity.javaClass.simpleName, "Board Created Successfully")
+                Toast.makeText(activity, "Board Created Successfully", Toast.LENGTH_LONG).show()
+                activity.boardCreatedSuccessfully()
+            }
+            .addOnFailureListener { exception ->
+                activity.hideProggresDialog()
+                Log.e(activity.javaClass.simpleName, "Error Created Successfully", exception)
+            }
     }
 
 
