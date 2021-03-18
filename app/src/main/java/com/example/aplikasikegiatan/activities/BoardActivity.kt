@@ -5,7 +5,6 @@ import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
@@ -19,7 +18,6 @@ import com.example.aplikasikegiatan.utils.Constans
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import kotlinx.android.synthetic.main.activity_board.*
-import kotlinx.android.synthetic.main.activity_my_profile.*
 import java.io.IOException
 
 class BoardActivity : BaseActivity() {
@@ -54,7 +52,7 @@ class BoardActivity : BaseActivity() {
         }
 
         btn_create_board.setOnClickListener {
-            if (mSelectedImageFileUri != null){
+            if (mSelectedImageFileUri != null) {
                 uploadBoardImage()
             } else {
                 showProgressDialog("please wait")
