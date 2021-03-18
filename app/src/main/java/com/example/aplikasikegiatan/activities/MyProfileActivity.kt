@@ -26,8 +26,7 @@ import java.io.IOException
 class MyProfileActivity : BaseActivity() {
 
     companion object {
-        private const val READ_STORAGE_PERMISION_CODE = 1
-        private const val PICK_IMAGE_REQUEST_CODE = 2
+
     }
 
     private var mSelectedImageFileUri: Uri? = null
@@ -45,12 +44,12 @@ class MyProfileActivity : BaseActivity() {
                     Manifest.permission.READ_EXTERNAL_STORAGE
                 ) == PackageManager.PERMISSION_GRANTED
             ) {
-                showImageChosser()
+                Constans.showImageChosser(this)
             } else {
                 ActivityCompat.requestPermissions(
                     this,
                     arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
-                    READ_STORAGE_PERMISION_CODE
+                    Constans.READ_STORAGE_PERMISION_CODE
                 )
             }
         }
@@ -72,23 +71,19 @@ class MyProfileActivity : BaseActivity() {
         grantResults: IntArray
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if (requestCode == READ_STORAGE_PERMISION_CODE) {
+        if (requestCode == Constans.READ_STORAGE_PERMISION_CODE) {
             if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                showImageChosser()
+                Constans.showImageChosser(this)
             }
         } else {
             Toast.makeText(this, "OOps", Toast.LENGTH_LONG).show()
         }
     }
 
-    private fun showImageChosser() {
-        var galleryIntent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
-        startActivityForResult(galleryIntent, PICK_IMAGE_REQUEST_CODE)
-    }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (resultCode == Activity.RESULT_OK && requestCode == PICK_IMAGE_REQUEST_CODE && data!!.data != null) {
+        if (resultCode == Activity.RESULT_OK && requestCode == Constans.PICK_IMAGE_REQUEST_CODE && data!!.data != null) {
             mSelectedImageFileUri = data.data
             try {
                 Glide
@@ -157,7 +152,8 @@ class MyProfileActivity : BaseActivity() {
         if (mSelectedImageFileUri != null) {
             val sRef: StorageReference =
                 FirebaseStorage.getInstance().reference.child(
-                    "USER_IMAGE" + System.currentTimeMillis() + "." + getFileExtension(
+                    "USER_IMAGE" + System.currentTimeMillis() + "." + Constans.getFileExtension(
+                        this,
                         mSelectedImageFileUri
                     )
                 )
@@ -180,9 +176,6 @@ class MyProfileActivity : BaseActivity() {
         }
     }
 
-    private fun getFileExtension(uri: Uri?): String? {
-        return MimeTypeMap.getSingleton().getExtensionFromMimeType(contentResolver.getType(uri!!))
-    }
 
     fun profileUpdateSuccess() {
         hideProggresDialog()
